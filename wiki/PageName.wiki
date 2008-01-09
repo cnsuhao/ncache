@@ -7,8 +7,12 @@
   * install the ncache
 
     ./configure
+
     make 
+
     make install
+
+    run the "mkdir_ngx_cache.sh" to make cache dir
 
     note:only support linux
 
