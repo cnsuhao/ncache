@@ -46,7 +46,7 @@
       {
         if ($request_method ~ "PURGE")
         {
-          rewrite (.*) /PURGE$1last;
+          rewrite (.*) /PURGE$1 last;
         }                                                                                         
         proxy_pass http://backend;
         proxy_ignore_client_no_cache on;
@@ -62,4 +62,3 @@
   }
 
   }}}
-
