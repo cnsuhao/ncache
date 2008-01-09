@@ -1,4 +1,4 @@
-#labels Featured,Phase-QA
+#labels Featured,Phase-QA,Phase-Deploy
 = How to use ncache =
 
 
@@ -94,3 +94,8 @@
   }
 
   }}}
+
+  * backend
+
+    you must add the http header "Cache-Control: max-age=***" to the backend server which 
+    you want to be cached, ortherwise, ncache will not cache it forever.
