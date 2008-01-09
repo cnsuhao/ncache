@@ -1,0 +1,68 @@
+#labels Featured,Phase-Deploy
+= How to use ncache =
+
+
+
+
+  * install the ncache
+
+    ./configure
+
+    make 
+
+    make install
+
+    run the "mkdir_ngx_cache.sh" to make cache dir
+
+    note:only support linux
+
+  * example to config the ncache
+    
+  {{{
+
+  worker_processes 4;
+
+  events
+  {
+    worker_connections  1024;
+  }
+
+
+  http
+  {
+    sendfile        on;
+    keepalive_timeout  65;
+
+
+    upstream backend
+    {
+      server 10.210.132.134;
+      cachedir /data0/ 128 128;
+      cachedir /data1/ 64 64;
+    }
+
+
+    server
+    {
+      listen       9080;
+      set $purge_uri $request_uri;
+      location /
+      {
+        if ($request_method ~ "PURGE")
+        {
+          rewrite (.*) /PURGE$1 last;
+        }                                                                                         
+        proxy_pass http://backend;
+        proxy_ignore_client_no_cache on;
+      }                
+      
+      location /PURGE/ 
+      {   
+        internal;   
+        allow all;
+        purge;  
+      }           
+    }  
+  }
+
+  }}}
