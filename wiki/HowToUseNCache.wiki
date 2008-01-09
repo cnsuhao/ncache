@@ -70,7 +70,7 @@
         }                                                                                         
         proxy_pass http://backend;
         
-        #here you can igron any client use "Cache-Control:no-cache" headers refresh the cache
+        #here you can ignore any client use "Cache-Control:no-cache" headers refresh the cache
 
         proxy_ignore_client_no_cache on;
       }                
