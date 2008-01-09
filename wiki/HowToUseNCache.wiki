@@ -75,10 +75,12 @@
         proxy_ignore_client_no_cache on;
       }                
       
+      #allow some one who can use http PURGE method delete the caches
       location /PURGE/ 
       {   
-        internal;   
-        allow all;
+        internal;        
+        allow   10.1.1.0/24;           
+        deny    all;
         purge;  
       }
       
