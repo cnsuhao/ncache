@@ -1,0 +1,4 @@
+#labels Phase-Requirements,Featured,Phase-QA
+= Changes with ncache 1.1 =
+
+ * Bugfix: if use purge to delete cache, will cause a segmentation fault
