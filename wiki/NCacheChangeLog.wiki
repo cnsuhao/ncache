@@ -1,24 +1,20 @@
 #labels Phase-Requirements,Featured,Phase-QA
-=Changes with ncache 1.2 beta=                                            11 Jan 2008
-		*)Bugfix: add some function return check. 
-			when any function call is fault, ncache will log it
+= Changes with ncache 1.2 beta =                                            11 Jan 2008
+		*)Bugfix: add some function return check. when any function call is fault, ncache will log it
 		
 		*)Feature: compress the index file about 800MB.
 		
-		*)Change: the purge function do not response 
-			any body content to http purge request.
+		*)Change: the purge function do not response any body content to http purge request.
 
-		*)Bugfix: the mkdir_ngx_cache.sh code , 
-			fix empty args bug, and a bug when not set user
+		*)Bugfix: the mkdir_ngx_cache.sh code, fix empty args bug, and a bug when not set user
 			
-		*)Change: Unified the ncache config file name, 
-			command name and dir name ...
+		*)Change: Unified the ncache config file name, command name and dir name ...
 		
-=Changes with ncache 1.1=                                                   9 Jan 2008
+= Changes with ncache 1.1 =                                                   9 Jan 2008
 
 		*)Bugfix: if use purge to delete cache, will cause a segmentation fault
 
-=Changes with ncache 1.0=                                                   8 Jan 2008
+= Changes with ncache 1.0 =                                                   8 Jan 2008
 
 		*) Change: add shoot Percentage to the ngx_http_stub_status_module
 		 
