@@ -15,7 +15,7 @@
 
     run the "mkdir_ngx_cache.sh" to make cache dir:
     {{{
-      {install_prefix}/bin/mkdir_ngx_cache.sh {install_prefix}/conf/nginx.conf
+      {install_prefix}/bin/mkdir_ngx_cache.sh {install_prefix}/conf/ncache.conf
     }}}
 
     * example to make cache directories  :
