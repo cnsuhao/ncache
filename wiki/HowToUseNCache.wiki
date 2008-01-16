@@ -100,7 +100,7 @@
 
   * backend set
 
-    you must add the http header 'Cache-Control: max-age=***' to the backend server which you want to be cached, ortherwise, ncache will not cache it forever.
+    you must add the http header ^Cache-Control: max-age=***^ to the backend server which you want to be cached, ortherwise, ncache will not cache it forever.
 
     if you set max-age < 1 minute ncache will set it to 1 minute, and ncache will exact all max-age to minute, so please align it to 60.
 
