@@ -20,7 +20,7 @@
 
     * example to make cache directories  :
     {{{
-      /usr/local/nginx/bin/mkdir_ngx_cache.sh /usr/local/nginx/conf/nginx.conf
+      /usr/local/ncache/bin/mkdir_ngx_cache.sh /usr/local/ncache/conf/ncache.conf
     }}}
 
     note:only support linux
@@ -44,6 +44,9 @@
     sendfile        on;
 
     keepalive_timeout  65;
+
+    #here to set the storage max size 2 Power 25 about 30,000,000
+    cache_max_size 25;
 
 
     upstream backend
