@@ -1,4 +1,15 @@
 #labels Phase-Requirements,Featured,Phase-QA
+= Changes with ncache 1.2 =						   16 Jan 2008
+		*)Bugfix:if the max-age time < time_out_max then the timeout value in the index will be set to 0.
+		
+		*)Feature: user custom set of the storage max size
+		
+		*)Change: exact timeout time to minute, set the max timeout time to 65535 minute = about 45 days.
+			
+		*)Feature: support HTTP 304.
+		
+		*)Change: > 1024MB cache file size.
+
 = Changes with ncache 1.2 beta =                                            11 Jan 2008
 
 		*)Bugfix: add some function return check. when any function call is fault, ncache will log it
