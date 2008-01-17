@@ -2,6 +2,7 @@
 From:liushenzeng@hotmail.com
 Title:ncache make error, thanks
 Content:
+{{{
 [root@f7 ncache]# 
 [root@f7 ncache]# 
 [root@f7 ncache]# ./configure
@@ -56,9 +57,11 @@ In file included from src/os/unix/ngx_atomic.h:15,
                  from src/core/nginx.c:8:
 src/os/unix/atomic.h:9:26: error: linux/config.h: No such file or directory
 src/os/unix/atomic.h:10:28: error: linux/compiler.h: 
+}}}
 
-
-reply:没有找到内核头文件 这个是src/os/unix/atomic.h头文件引起的，你可以用编辑器打开该文件，修改引用的头文件路径config.h 和 complier.h ，将他们对应到你操作系统的相应路径上就可以了
+reply:
+{{{
+没有找到内核头文件 这个是src/os/unix/atomic.h头文件引起的，你可以用编辑器打开该文件，修改引用的头文件路径config.h 和 complier.h ，将他们对应到你操作系统的相应路径上就可以了
 
 Ubuntu下安装内核头文件： 
                                 apt-get   install   build-essential 
@@ -66,3 +69,4 @@ Ubuntu下安装内核头文件：
 
  
 谢谢你告诉我们这个问题，我会去看看能不能尽量在安装文件里把这个路径问题解决，谢谢
+}}}
