@@ -2,6 +2,7 @@
 From:liushenzeng@hotmail.com
 
 Title:ncache make error, thanks
+
 Content:
 {{{
 [root@f7 ncache]# 
