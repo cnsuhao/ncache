@@ -8,7 +8,7 @@
 			
 		*)Feature: support HTTP 304.
 		
-		*)Change: > 1024MB cache file size.
+		*)Change: > 1MB cache file size.
 
 = Changes with ncache 1.2 beta =                                            11 Jan 2008
 
