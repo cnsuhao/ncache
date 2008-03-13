@@ -1,17 +1,14 @@
 #labels Phase-Requirements,Featured,Phase-QA
 = Changes with ncache 1.3-beta =                                          28 Feb 2008
-		*)Bugfix: if proxy file is too big, 
-			then ncache will not cache all file content.
+		*)Bugfix: if proxy file is too big, then ncache will not cache all file content.
 		
 		*)Bugfix: ncache worker process deadlock.
 		
-		*)Change: process lock change to record lock,
-			when malloc new index or free old.
+		*)Change: process lock change to record lock, when malloc new index or free old.
 			
 		*)Feature: aio write list improve disk io performance.
 		
-		*)Feature: compress md5 key's first 3 byte,
-			the index file is 700MB right now.
+		*)Feature: compress md5 key's first 3 byte, the index file is 700MB right now.
 			
 		*)Bugfix: reopen or rewrite the same cache file.
 		
