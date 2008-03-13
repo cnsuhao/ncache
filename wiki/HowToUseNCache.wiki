@@ -2,7 +2,7 @@
 = How to use ncache =
 
 
-
+  * delete the old ncache files and folders
 
   * install the ncache
 {{{
@@ -56,6 +56,7 @@
     
     #the new config in v1.3 to set proxy big file buffer null
     proxy_buffering off;
+
 
 
     upstream backend
