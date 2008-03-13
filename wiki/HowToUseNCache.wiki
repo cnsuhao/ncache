@@ -13,6 +13,11 @@
     make install
 }}}
 
+    edit your config file at 
+    {{{
+      {install_prefix}/conf/ncache.conf
+    }}}
+
     run the "mkdir_ngx_cache.sh" to make cache dir:
     {{{
       {install_prefix}/bin/mkdir_ngx_cache.sh {install_prefix}/conf/ncache.conf
@@ -45,8 +50,12 @@
 
     keepalive_timeout  65;
 
-    #here to set the storage max size 2 Power 25 about 30,000,000
-    cache_max_size 25;
+    #here to set the free list max size 2 Power 24 about 30,000,000
+    #in 1.2 or 1.1 it is 25
+    cache_max_size 24;
+    
+    #the new config in v1.3 to set proxy big file buffer null
+    proxy_buffering off;
 
 
     upstream backend
