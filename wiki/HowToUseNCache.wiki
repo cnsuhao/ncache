@@ -37,6 +37,9 @@
   user  www www;
 
   worker_processes 4;
+  
+  #ulimit -n 20480
+  worker_rlimit_nofile 20480;
 
   events
   {
