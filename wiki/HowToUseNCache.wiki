@@ -68,6 +68,7 @@
       server 10.1.1.2;
 
       #just support 256,128,and 64
+      #you must end path with '/' 
       cachedir /data0/ 128 128;
       cachedir /data1/ 64 64;
     }
