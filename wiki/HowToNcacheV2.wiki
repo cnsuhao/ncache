@@ -162,7 +162,13 @@ mv mkdir_ngx_cache.sh /usr/local/nginx/bin/
 killall -9 nginx
 }}}
 
-=backend set=
+=State=
+
+{{{
+curl "http://127.0.0.1/ncache_state"
+}}}
+
+=Backend Set=
 
     you must add the http header Cache-Control: max-age=*** to the backend server which you want to be cached, ortherwise, ncache will not cache it forever. 
 
