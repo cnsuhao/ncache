@@ -17,6 +17,8 @@ make install
 
 =config=
 
+vi your nginx config file "/usr/local/nginx/conf/nginx.conf"
+
 {{{
 
 user www www;
