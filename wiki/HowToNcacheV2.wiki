@@ -15,7 +15,7 @@ make install
 
 }}}
 
-=config=
+=Config=
 
 vi your nginx config file "/usr/local/nginx/conf/nginx.conf"
 
@@ -136,4 +136,16 @@ http
 }
 
 
+}}}
+
+=Run=
+
+{{{
+/usr/local/nginx/sbin/nginx
+}}}
+
+=Stop=
+
+{{{
+killall -9 nginx
 }}}
