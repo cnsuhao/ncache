@@ -162,6 +162,16 @@ mv mkdir_ngx_cache.sh /usr/local/nginx/bin/
 killall -9 nginx
 }}}
 
+=Clean=
+
+{{{
+rm ../logs/ncache_index
+
+ipcrm -Q 0xffffffff
+
+find /data1/ngx_cache/ -type f -exec rm {} \;
+}}}
+
 =State=
 
 {{{
