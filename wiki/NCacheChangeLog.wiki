@@ -1,4 +1,19 @@
 #labels Phase-Requirements,Featured,Phase-QA
+= Changes with ncache 2.0 =                                               23 july 2008
+                *)Change: be a nginx module, you can use it with standard nginx.
+                 
+                *)Bugfix: http 208 head handle.
+
+                *)Change: more error log.
+
+                *)Bugfix: if an error occur on upstream to backend server ncache will not update the cache index.
+
+                *)Feature: multi upstream support, thanks for Arden.Emily.
+
+                *)Change: more ncache state check.
+
+                *)Change: command in conf file.
+
 = Changes with ncache 1.3 =                                               17 Mar 2008
 		*)Bugfix: can not complete on gcc 4.
 
