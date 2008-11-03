@@ -1,0 +1,13 @@
+#labels Phase-Support
+some advice:
+we can modify some Linux system params to improve the device I/O perfomance.
+
+for example:
+/proc/sys/vm/dirty_writeback_centisecs
+	echo "100" > /proc/sys/vm/dirty_writeback_centisecs
+
+/proc/sys/vm/dirty_ratio
+	echo '10' > /proc/sys/vm/dirty_ratio
+
+/proc/sys/vm/dirty_background_ratio
+	 echo '5' > /proc/sys/vm/dirty_background_ratio
