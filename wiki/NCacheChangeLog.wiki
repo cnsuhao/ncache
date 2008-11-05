@@ -2,17 +2,23 @@
 = Changes with ncache 2.1 =                                               3 Nov 2008
                 *)Change: use mempool in process.
                  
-                *)Bugfix: POST method
+                *)Bugfix: POST method.
 
                 *)Change: use list chain instead of msg.
 
-                *)Bugfix: unlink in purge,the file name is wrong
-update the cache index.
-                *)Feature: use less memory
+                *)Bugfix: unlink in purge,the file name is wrong.
 
-                *)Change: md5,use 8 chars 
+                *)Feature: use less memory.
 
-                *)Change: delete some members,check and del
+                *)Change: md5,use 8 chars.
+
+                *)Change: delete some members,check and del.
+
+                *)Bugfix: the count of stored files,it is not accurate as it does nothing when the file is timeout
+
+                *)Bugfix: lock in purge,lock one index but unlock the other.
+
+
 = Changes with ncache 2.0 =                                               23 july 2008
                 *)Change: be a nginx module, you can use it with standard nginx.
                  
