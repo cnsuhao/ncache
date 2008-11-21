@@ -1,4 +1,9 @@
 #labels Phase-Requirements,Featured,Phase-QA
+
+= Changes with ncache 2.3 =                                               21 Nov 2008
+                *)bugfix: make error in gcc 4.*
+                 
+                *)Bugfix: the cached file may use other file's index info.
 = Changes with ncache 2.2 =                                               17 Nov 2008
                 *)Change: del type field in hash idex.
                  
