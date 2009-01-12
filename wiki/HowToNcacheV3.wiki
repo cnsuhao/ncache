@@ -1,15 +1,15 @@
 #labels Featured,Phase-Deploy
-V3 is for 64bit OS,Linux or FreeBSD.
-
+#V3 is for 64bit OS,Linux or FreeBSD.
+#64 is for the 64-bit platform 
 =Install=
 
 {{{
 
-tar -vxzf ncache-2.0.tar.gz
+tar -vxzf ncache-3.0_64.tar.gz
 
-mv -fR ncache-2.0 nginx-0.6.31/src/http/modules/
+mv -fR ncache nginx-0.6.31/src/http/modules/
 
-./configure --add-module=src/http/modules/ncache-2.0/
+./configure --add-module=src/http/modules/ncache/
 
 make 
 
@@ -46,10 +46,10 @@ http
 
 	proxy_buffering off;
 
-        ncache_dir /data1/cache_file  60;
+        ncache_dir /data1/cache_file  60;#the file for storage,60G
         ncache_dir /data2/cache_file  60;
     	
-	auto_delete_file on;
+	auto_delete_file on;#enable the auto delete file
 	ncache_ignore_client_no_cache on;
 	
 	upstream backend 
@@ -139,17 +139,7 @@ http
 
 }}}
 
-download mkdir_ngx_cache_v2.sh
 
-{{{
-
-mkdir -p /usr/local/nginx/bin/
-
-mv mkdir_ngx_cache_v2.sh /usr/local/nginx/bin/
-
-/usr/local/nginx/bin/mkdir_ngx_cache_v2.sh /usr/local/nginx/conf/nginx.conf
-
-}}}
 
 =Run=
 
