@@ -161,7 +161,7 @@ rm ../logs/ncache_index
 
 ipcrm -Q 0xffffffff
 
-find /data1/ngx_cache/ -type f -exec rm {} \;
+rm /data1/cache_file  /data2/cache_file  
 }}}
 
 =State=
