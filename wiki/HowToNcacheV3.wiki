@@ -8,7 +8,7 @@
 
 tar -vxzf ncache-3.0_64.tar.gz
 
-mv -fR ncache nginx-0.6.31/src/http/modules/
+mv -fR ncache nginx-0.6.34/src/http/modules/
 
 ./configure --add-module=src/http/modules/ncache/
 
@@ -72,6 +72,8 @@ http
                              '"$http_referer" "$http_user_agent" $remote_addr';
 
 	include "mime.types";
+
+        default_type text/html;
 
 	server 
 	{
@@ -157,11 +159,24 @@ killall -9 nginx
 =Clean=
 
 {{{
+the clean shell:
+
+#! /bin/sh
+
+kill -9 `ps auwx|grep nginx|awk '{print $2}'`
+
+killall -9 nginx
+
 rm ../logs/ncache_index
 
-ipcrm -Q 0xffffffff
+echo "" > ../logs/error.log
 
-rm /data1/cache_file  /data2/cache_file  
+
+rm /data0/ncache_file
+rm /data1/ncache_file
+rm /data2/ncache_file
+rm /data3/ncache_file
+
 }}}
 
 =State=
@@ -176,4 +191,4 @@ curl "http://127.0.0.1/ncache_state"
 
     if you set max-age < 1 minute ncache will set it to 1 minute, and ncache will exact all max-age to minute, so please align it to 60. 
 
-about the auto delete files process,it deletes the inactive cached data,about 20% of the total data.it runs at 2:00 every day.
+    about the auto delete files process,it deletes the inactive cached data,about 20% of the total data.it runs at 2:00 every day.
