@@ -1,4 +1,6 @@
 #labels Featured,Phase-Deploy
+V3 is for 64bit OS,Linux or FreeBSD.
+
 =Install=
 
 {{{
