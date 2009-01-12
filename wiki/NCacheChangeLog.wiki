@@ -7,6 +7,8 @@
 
                 *)Change: no thread
 
+                *)I/O is better
+
 = Changes with ncache 2.3 =                                               21 Nov 2008
                 *)bugfix: make error in gcc 4.*
                  
