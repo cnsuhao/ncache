@@ -93,11 +93,7 @@ http
 			{
 					rewrite (.*) /PURGE$1 last;
 			}
-
-			if ($request_uri = /)
-                        {
-				rewrite ^/$ /lm/index.html last;
-                        } 		
+		
 
 			ncache_http_cache;
 
