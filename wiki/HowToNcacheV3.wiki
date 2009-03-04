@@ -41,7 +41,7 @@ events
 
 http 
 {
-	keepalive_timeout 1800;
+	keepalive_timeout 10;
 	
 	ncache_max_size 24;
 
@@ -60,9 +60,9 @@ http
 
 	sendfile on;
 
-	send_timeout 90;
+	send_timeout 10;
 
-	client_header_timeout 120;
+	client_header_timeout 10;
 
 
 	tcp_nodelay on;
