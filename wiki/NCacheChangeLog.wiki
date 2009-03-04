@@ -1,4 +1,16 @@
 #labels Phase-Requirements,Featured,Phase-QA
+= Changes with ncache 3.1 for 64 =                                        4 Mar 2009
+                
+                *)Change: use little meta data
+                 
+                *)Change: use pthread_mutex
+
+                *)Change: use sendfile
+
+                *)Bugfix: state print
+
+                *)Bugfix: realloc page
+
 = Changes with ncache 3 for 64 =                                        12 Jan 2009
                 
                 *)Change: use new storage methed to store file
