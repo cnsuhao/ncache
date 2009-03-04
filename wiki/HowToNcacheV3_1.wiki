@@ -1,5 +1,0 @@
-#labels Featured,Phase-Implementation,Phase-Support
-#you can refer the HowToNcacheV3,3.1 only add one command hash_index_dir
-ncache_dir /data1/ngx_cache/file1 20;#v3.0
-
-hash_index_dir /data1/ncache_index;#v3.1,you need to define the index file position
