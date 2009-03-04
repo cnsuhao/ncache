@@ -49,7 +49,7 @@ http
 
         ncache_dir /data1/cache_file  60;#the file for storage,60G
         ncache_dir /data2/cache_file  60;
-    	
+    	hash_index_dir /data1/ncache_index;#v3.1,you need to define the index file position
 	auto_delete_file on;#enable the auto delete file
 	ncache_ignore_client_no_cache on;
 	
