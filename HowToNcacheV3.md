@@ -1,0 +1,191 @@
+#V3 is for 64bit OS,Linux or FreeBSD.
+
+#64 is for the 64-bit platform
+# Install #
+
+```
+
+tar -vxzf ncache-3.0_64.tar.gz
+
+mv -fR ncache nginx-0.6.34/src/http/modules/
+
+./configure --add-module=src/http/modules/ncache/
+
+make 
+
+make install
+
+```
+
+# Config #
+
+vi your nginx config file "/usr/local/nginx/conf/nginx.conf"
+
+```
+
+user www www;
+
+worker_processes 4;
+
+worker_rlimit_nofile 20480;
+
+error_log  logs/error.log;
+
+events 
+{
+	use epoll;
+
+	worker_connections 81920;
+}
+
+http 
+{
+	keepalive_timeout 10;
+	
+	ncache_max_size 24;
+
+	proxy_buffering off;
+
+        ncache_dir /data1/cache_file  60;#the file for storage,60G
+        ncache_dir /data2/cache_file  60;
+    	hash_index_dir /data1/ncache_index;#v3.1,you need to define the index file position
+	auto_delete_file on;#enable the auto delete file
+	ncache_ignore_client_no_cache on;
+	
+	upstream backend 
+	{
+            server 10.0.0.1;
+	}
+
+	sendfile on;
+
+	send_timeout 10;
+
+	client_header_timeout 10;
+
+
+	tcp_nodelay on;
+    	
+	log_format main      '$proxy_add_x_forwarded_for - $remote_user [$time_local] '
+                             '"$request" $status $bytes_sent '
+                             '"$http_referer" "$http_user_agent" $remote_addr';
+
+	include "mime.types";
+
+        default_type text/html;
+
+	server 
+	{
+		server_name  .blog.sina.com.cn;
+
+		listen *:80;
+		
+		set $xvia "blog.sina.com.cn";	
+    
+		set $proxy_add_agent "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; NginxCache)";
+                access_log logs/blog.sina.com.cn-access_log main;
+
+		location / 
+		{
+
+			if ($request_method ~ "PURGE")
+			{
+					rewrite (.*) /PURGE$1 last;
+			}
+		
+
+			ncache_http_cache;
+
+			error_page  404 = /fetch$request_uri;
+			
+			add_header      Sina-Cache   $xvia;
+
+		}
+
+		location /ncache_state
+                {
+                    ncache_state;
+                }
+
+
+		location /fetch
+                {
+                    internal;
+                    proxy_pass http://backend;
+                    add_header      Sina-Cache   $xvia;
+                    proxy_hide_header	User-Agent;
+                    proxy_set_header	User-Agent $proxy_add_agent;
+                    proxy_set_header	X-Forwarded-For $proxy_add_x_forwarded_for;
+                }
+
+
+		location /PURGE/ 
+                {      	
+                    access_log logs/purge.blog.sina.com.cn-access_log main;
+                    internal;
+                    allow 10.55.37.0/24;
+                    allow 10.69.3.0/24;
+                    allow 10.49.10.0/24;
+                    deny    all;
+                    ncache_purge;
+                }      
+ 
+	}
+
+}
+
+
+```
+
+
+
+# Run #
+
+```
+/usr/local/nginx/sbin/nginx
+```
+
+# Stop #
+
+```
+killall -9 nginx
+```
+
+# Clean #
+
+```
+the clean shell:
+
+#! /bin/sh
+
+kill -9 `ps auwx|grep nginx|awk '{print $2}'`
+
+killall -9 nginx
+
+rm ../logs/ncache_index
+
+echo "" > ../logs/error.log
+
+
+rm /data0/ncache_file
+rm /data1/ncache_file
+rm /data2/ncache_file
+rm /data3/ncache_file
+
+```
+
+# State #
+
+```
+curl "http://127.0.0.1/ncache_state"
+```
+
+# Backend Set #
+
+> you must add the http header "Cache-Control: max-age=**" to the backend server which you want to be cached, ortherwise, ncache will not cache it forever.**
+
+> you must have the "content-len" header in the backend and send it to the ncache.
+
+> if you set max-age < 1 minute ncache will set it to 1 minute, and ncache will exact all max-age to minute, so please align it to 60.
+
+> about the auto delete files process,it deletes the inactive cached data,about 20% of the total data.it runs at 2:00 every day.

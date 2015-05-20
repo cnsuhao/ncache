@@ -1,0 +1,184 @@
+# Install #
+
+```
+
+tar -vxzf ncache-2.0.tar.gz
+
+mv -fR ncache-2.0 nginx-0.6.31/src/http/modules/
+
+./configure --add-module=src/http/modules/ncache-2.0/
+
+make 
+
+make install
+
+```
+
+# Config #
+
+vi your nginx config file "/usr/local/nginx/conf/nginx.conf"
+
+```
+
+user www www;
+
+worker_processes 4;
+
+worker_rlimit_nofile 20480;
+
+error_log  logs/error.log;
+
+events 
+{
+	use epoll;
+
+	worker_connections 81920;
+}
+
+http 
+{
+	keepalive_timeout 1800;
+	
+	ncache_max_size 24;
+
+	proxy_buffering off;
+
+	ncache_dir /data1/ngx_cache/ 128 64;
+	ncache_dir /data2/ngx_cache/ 128 64;
+	ncache_dir /data3/ngx_cache/ 128 64;
+	ncache_dir /data4/ngx_cache/ 128 64;
+
+	ncache_ignore_client_no_cache on;
+	
+	upstream backend 
+	{
+            server 10.0.0.1;
+	}
+
+	sendfile on;
+
+	send_timeout 90;
+
+	client_header_timeout 120;
+
+
+	tcp_nodelay on;
+    	
+	log_format main      '$proxy_add_x_forwarded_for - $remote_user [$time_local] '
+                             '"$request" $status $bytes_sent '
+                             '"$http_referer" "$http_user_agent" $remote_addr';
+
+	include "mime.types";
+
+	server 
+	{
+		server_name  .blog.sina.com.cn;
+
+		listen *:80;
+		
+		set $xvia "blog.sina.com.cn";	
+    
+		set $proxy_add_agent "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; NginxCache)";
+                access_log logs/blog.sina.com.cn-access_log main;
+
+		location / 
+		{
+
+			if ($request_method ~ "PURGE")
+			{
+					rewrite (.*) /PURGE$1 last;
+			}
+
+			if ($request_uri = /)
+                        {
+				rewrite ^/$ /lm/index.html last;
+                        } 		
+
+			ncache_http_cache;
+
+			error_page  404 = /fetch$request_uri;
+			
+			add_header      Sina-Cache   $xvia;
+
+		}
+
+		location /ncache_state
+                {
+                    ncache_state;
+                }
+
+
+		location /fetch
+                {
+                    internal;
+                    proxy_pass http://backend;
+                    add_header      Sina-Cache   $xvia;
+                    proxy_hide_header	User-Agent;
+                    proxy_set_header	User-Agent $proxy_add_agent;
+                    proxy_set_header	X-Forwarded-For $proxy_add_x_forwarded_for;
+                }
+
+
+		location /PURGE/ 
+                {      	
+                    access_log logs/purge.blog.sina.com.cn-access_log main;
+                    internal;
+                    allow 10.55.37.0/24;
+                    allow 10.69.3.0/24;
+                    allow 10.49.10.0/24;
+                    deny    all;
+                    ncache_purge;
+                }      
+ 
+	}
+
+}
+
+
+```
+
+download mkdir\_ngx\_cache\_v2.sh
+
+```
+
+mkdir -p /usr/local/nginx/bin/
+
+mv mkdir_ngx_cache_v2.sh /usr/local/nginx/bin/
+
+/usr/local/nginx/bin/mkdir_ngx_cache_v2.sh /usr/local/nginx/conf/nginx.conf
+
+```
+
+# Run #
+
+```
+/usr/local/nginx/sbin/nginx
+```
+
+# Stop #
+
+```
+killall -9 nginx
+```
+
+# Clean #
+
+```
+rm ../logs/ncache_index
+
+ipcrm -Q 0xffffffff
+
+find /data1/ngx_cache/ -type f -exec rm {} \;
+```
+
+# State #
+
+```
+curl "http://127.0.0.1/ncache_state"
+```
+
+# Backend Set #
+
+> you must add the http header Cache-Control: max-age=**to the backend server which you want to be cached, ortherwise, ncache will not cache it forever.**
+
+> if you set max-age < 1 minute ncache will set it to 1 minute, and ncache will exact all max-age to minute, so please align it to 60.
